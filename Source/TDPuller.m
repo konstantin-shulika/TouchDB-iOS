@@ -48,7 +48,7 @@
 @end
 
 
-static NSString* joinQuotedEscaped(NSArray* strings);
+//static NSString* joinQuotedEscaped(NSArray* strings);
 
 
 @implementation TDPuller
@@ -355,11 +355,11 @@ static NSString* joinQuotedEscaped(NSArray* strings);
     // been added since the latest revisions we have locally.
     // See: http://wiki.apache.org/couchdb/HTTP_Document_API#GET
     // See: http://wiki.apache.org/couchdb/HTTP_Document_API#Getting_Attachments_With_a_Document
-    NSString* path = $sprintf(@"%@?rev=%@&revs=true&attachments=true",
+    NSString* path = $sprintf(@"%@?rev=%@&revs=true",
                               TDEscapeID(rev.docID), TDEscapeID(rev.revID));
-    NSArray* knownRevs = [_db getPossibleAncestorRevisionIDs: rev limit: kMaxNumberOfAttsSince];
-    if (knownRevs.count > 0)
-        path = [path stringByAppendingFormat: @"&atts_since=%@", joinQuotedEscaped(knownRevs)];
+    //NSArray* knownRevs = [_db getPossibleAncestorRevisionIDs: rev limit: kMaxNumberOfAttsSince];
+    //if (knownRevs.count > 0)
+    //    path = [path stringByAppendingFormat: @"&atts_since=%@", joinQuotedEscaped(knownRevs)];
     LogTo(SyncVerbose, @"%@: GET %@", self, path);
     
     // Under ARC, using variable dl directly in the block given as an argument to initWithURL:...
@@ -537,10 +537,10 @@ static NSString* joinQuotedEscaped(NSArray* strings);
 @end
 
 
-
+/*
 static NSString* joinQuotedEscaped(NSArray* strings) {
     if (strings.count == 0)
         return @"[]";
     NSString* json = [TDJSON stringWithJSONObject: strings options: 0 error: NULL];
     return TDEscapeURLParam(json);
-}
+}*/
